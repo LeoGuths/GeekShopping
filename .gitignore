@@ -1,0 +1,8 @@
+.idea/
+/*.pub
+
+/GeekShopping.ProductAPI/bin
+/GeekShopping.ProductAPI/obj
+
+/GeekShopping.Web/obj
+/GeekShopping.Web/bin
