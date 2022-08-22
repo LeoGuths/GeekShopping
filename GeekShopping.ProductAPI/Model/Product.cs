@@ -25,7 +25,7 @@ public class Product : BaseEntity
     [StringLength(50)]
     public string CategoryName { get; set; }
     
-    [Column("imagem_url")]
+    [Column("image_url")]
     [StringLength(300)]
     public string ImageUrl { get; set; }
 }
