@@ -5,7 +5,7 @@ namespace GeekShopping.Web.Extensions;
 
 public static class HttpClientExtension
 {
-    private static MediaTypeHeaderValue contentType = new MediaTypeHeaderValue("application/json");
+    private static readonly MediaTypeHeaderValue ContentType = new ("application/json");
     
     public static async Task<T> ReadContentAs<T>(this HttpResponseMessage response)
     {
@@ -18,7 +18,7 @@ public static class HttpClientExtension
     {
         string dataAsString = JsonSerializer.Serialize(data);
         var content = new StringContent(dataAsString);
-        content.Headers.ContentType = contentType;
+        content.Headers.ContentType = ContentType;
         return httpClient.PostAsync(url, content);
     }
     
@@ -26,7 +26,7 @@ public static class HttpClientExtension
     {
         string dataAsString = JsonSerializer.Serialize(data);
         var content = new StringContent(dataAsString);
-        content.Headers.ContentType = contentType;
+        content.Headers.ContentType = ContentType;
         return httpClient.PutAsync(url, content);
     }
 }
