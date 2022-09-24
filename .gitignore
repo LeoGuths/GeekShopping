@@ -1,8 +1,12 @@
 .idea/
 /*.pub
 
-/GeekShopping.ProductAPI/bin
 /GeekShopping.ProductAPI/obj
+/GeekShopping.ProductAPI/bin
 
 /GeekShopping.Web/obj
 /GeekShopping.Web/bin
+
+/GeekShopping.IdentityServer/obj
+/GeekShopping.IdentityServer/bin
+/GeekShopping.IdentityServer/keys
