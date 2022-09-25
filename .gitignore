@@ -10,3 +10,6 @@
 /GeekShopping.IdentityServer/obj
 /GeekShopping.IdentityServer/bin
 /GeekShopping.IdentityServer/keys
+
+/GeekShopping.CartAPI/obj
+/GeekShopping.CartAPI/bin
