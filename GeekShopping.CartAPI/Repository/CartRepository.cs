@@ -17,7 +17,7 @@ public class CartRepository : ICartRepository {
     
     public async Task<CartVO> FindCartByUserId(string userId) {
         Cart cart = new() {
-            CartHeader = await _context.CartHeaders.FirstOrDefaultAsync(c => c.UserId.Equals(userId, StringComparison.Ordinal)),
+            CartHeader = await _context.CartHeaders.FirstOrDefaultAsync(c => c.UserId.Equals(userId)),
         };
         cart.CartDetails = _context.CartDetails
             .Where(c => c.CartHeaderId == cart.CartHeader.Id)
@@ -33,7 +33,7 @@ public class CartRepository : ICartRepository {
             await _context.SaveChangesAsync();
         }
 
-        var cartHeader = await _context.CartHeaders.AsNoTracking().FirstOrDefaultAsync(c => c.UserId.Equals(cart.CartHeader.UserId, StringComparison.Ordinal));
+        var cartHeader = await _context.CartHeaders.AsNoTracking().FirstOrDefaultAsync(c => c.UserId.Equals(cart.CartHeader.UserId));
         if (cartHeader == null) {
             _context.CartHeaders.Add(cart.CartHeader);
             await _context.SaveChangesAsync();
@@ -44,9 +44,9 @@ public class CartRepository : ICartRepository {
         } 
         else {
             var cartDetail = await _context.CartDetails.AsNoTracking()
-                .FirstOrDefaultAsync(p => p.ProductId == vo.CartDetails.FirstOrDefault().ProductId && p.CartHeaderId == cartHeader.Id);
+                .FirstOrDefaultAsync(p => p.ProductId == cart.CartDetails.FirstOrDefault().ProductId && p.CartHeaderId == cartHeader.Id);
             if (cartDetail == null) {
-                cart.CartDetails.FirstOrDefault().CartHeaderId = cart.CartHeader.Id;
+                cart.CartDetails.FirstOrDefault().CartHeaderId = cartHeader.Id;
                 cart.CartDetails.FirstOrDefault().Product = null;
                 _context.CartDetails.Add(cart.CartDetails.FirstOrDefault());
                 await _context.SaveChangesAsync();

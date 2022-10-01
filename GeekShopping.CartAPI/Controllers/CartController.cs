@@ -17,14 +17,14 @@ public class CartController : ControllerBase {
 
     [HttpGet("find-cart/{id}")]
     //Authorize]
-    public async Task<ActionResult<CartVO>> FindById(string userId)
+    public async Task<ActionResult<CartVO>> FindById(string id)
     {
-        CartVO cart = await _repository.FindCartByUserId(userId);
+        CartVO cart = await _repository.FindCartByUserId(id);
         if (cart == null) return NotFound();
         return Ok(cart);
     }
     
-    [HttpPost("add-cart/{id}")]
+    [HttpPost("add-cart")]
     //Authorize]
     public async Task<ActionResult<CartVO>> AddCart(CartVO vo) {
         CartVO cart = await _repository.SaveOrUpdateCart(vo);
@@ -32,7 +32,7 @@ public class CartController : ControllerBase {
         return Ok(cart);
     }
     
-    [HttpPut("update-cart/{id}")]
+    [HttpPut("update-cart")]
     //Authorize]
     public async Task<ActionResult<CartVO>> UpdateCart(CartVO vo) {
         CartVO cart = await _repository.SaveOrUpdateCart(vo);

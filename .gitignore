@@ -3,13 +3,16 @@
 
 /GeekShopping.ProductAPI/obj
 /GeekShopping.ProductAPI/bin
+/GeekShopping.ProductAPI/Migrations
 
 /GeekShopping.Web/obj
 /GeekShopping.Web/bin
 
 /GeekShopping.IdentityServer/obj
 /GeekShopping.IdentityServer/bin
+/GeekShopping.IdentityServer/Migrations
 /GeekShopping.IdentityServer/keys
 
 /GeekShopping.CartAPI/obj
 /GeekShopping.CartAPI/bin
+/GeekShopping.CartAPI/Migrations

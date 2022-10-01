@@ -39,7 +39,7 @@ builder.Services.AddAuthorization(options => {
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo{ Title = "GeekShopping.CartAPI"});
+    c.SwaggerDoc("v1", new OpenApiInfo{ Title = "GeekShopping.CartAPI", Version = "v1"});
     c.EnableAnnotations();
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme {
         Description = @"Enter 'Bearer' [space] and your token!",
@@ -75,7 +75,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseRouting();
+//app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
