@@ -16,7 +16,7 @@ public class CartController : ControllerBase {
     }
 
     [HttpGet("find-cart/{id}")]
-    //Authorize]
+    [Authorize]
     public async Task<ActionResult<CartVO>> FindById(string id)
     {
         CartVO cart = await _repository.FindCartByUserId(id);

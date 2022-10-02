@@ -20,8 +20,8 @@ public class CartRepository : ICartRepository {
             CartHeader = await _context.CartHeaders.FirstOrDefaultAsync(c => c.UserId.Equals(userId)),
         };
         cart.CartDetails = _context.CartDetails
-            .Where(c => c.CartHeaderId == cart.CartHeader.Id)
-            .Include(c => c.Product);
+            .Where(c => cart.CartHeader != null && c.CartHeaderId == cart.CartHeader.Id)
+            .Include(c => c.Product).ToList();
         return _mapper.Map<CartVO>(cart);
     }
 
