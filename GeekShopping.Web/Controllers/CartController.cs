@@ -34,16 +34,16 @@ public class CartController : Controller {
     }
 
     private async Task<CartViewModel> FindUserCart() {
-        var accessToken = await HttpContext.GetTokenAsync("access_token");
-        var userId = User.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
+        var token = await HttpContext.GetTokenAsync("access_token");
+        var userId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value;
 
-        var response = await _cartService.FindCartByUserId(userId, accessToken);
+        var response = await _cartService.FindCartByUserId(userId, token);
+
         if (response?.CartHeader != null) {
             foreach (var detail in response.CartDetails) {
-                response.CartHeader.PurchaseAmout += detail.Product.Price * detail.Count;
+                response.CartHeader.PurchaseAmout += (detail.Product.Price * detail.Count);
             }
         }
-
         return response;
     }
 }

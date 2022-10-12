@@ -16,3 +16,7 @@
 /GeekShopping.CartAPI/obj
 /GeekShopping.CartAPI/bin
 /GeekShopping.CartAPI/Migrations
+
+/GeekShopping.CouponAPI/obj
+/GeekShopping.CouponAPI/bin
+/GeekShopping.CouponAPI/Migrations
