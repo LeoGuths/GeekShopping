@@ -46,12 +46,16 @@ public class CartService : ICartService {
         return response.IsSuccessStatusCode ? await response.ReadContentAs<bool>() : throw new Exception("Something went wrong when calling API");
     }
 
-    public async Task<bool> ApplyCoupon(CartViewModel cart, string couponCode, string accessToken) {
-        throw new NotImplementedException();
+    public async Task<bool> ApplyCoupon(CartViewModel model, string accessToken) {
+        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",accessToken);
+        var response = await _client.PostAsJson($"{BasePath}/apply-coupon", model);
+        return response.IsSuccessStatusCode ? await response.ReadContentAs<bool>() : throw new Exception("Something went wrong when calling API");
     }
 
     public async Task<bool> RemoveCoupon(string userId, string accessToken) {
-        throw new NotImplementedException();
+        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",accessToken);
+        var response = await _client.DeleteAsync($"{BasePath}/remove-coupon/{userId}");
+        return response.IsSuccessStatusCode ? await response.ReadContentAs<bool>() : throw new Exception("Something went wrong when calling API");
     }
 
     public async Task<bool> ClearCart(string userId, string accessToken) {

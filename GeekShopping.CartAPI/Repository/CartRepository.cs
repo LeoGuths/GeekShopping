@@ -99,15 +99,27 @@ public class CartRepository : ICartRepository {
     }
 
     public async Task<bool> ApplyCoupon(string userId, string couponCode) {
-        throw new NotImplementedException();
+        var header = await _context.CartHeaders.FirstOrDefaultAsync(c => c.UserId.Equals(userId));
+        if (header == null) return false;
+
+        header.CouponCode = couponCode;
+        _context.CartHeaders.Update(header);
+        await _context.SaveChangesAsync();
+        return true;
     }
 
     public async Task<bool> RemoveCoupon(string userId) {
-        throw new NotImplementedException();
+        var header = await _context.CartHeaders.FirstOrDefaultAsync(c => c.UserId.Equals(userId));
+        if (header == null) return false;
+
+        header.CouponCode = "";
+        _context.CartHeaders.Update(header);
+        await _context.SaveChangesAsync();
+        return true;
     }
 
     public async Task<bool> ClearCart(string userId) {
-        var cartHeader = await _context.CartHeaders.FirstOrDefaultAsync(c => c.UserId.Equals(userId, StringComparison.Ordinal));
+        var cartHeader = await _context.CartHeaders.FirstOrDefaultAsync(c => c.UserId.Equals(userId));
         if (cartHeader == null) return false;
         
         _context.CartDetails.RemoveRange(_context.CartDetails.Where(c => c.CartHeaderId == cartHeader.Id));

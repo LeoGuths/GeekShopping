@@ -9,17 +9,45 @@ namespace GeekShopping.Web.Controllers;
 public class CartController : Controller {
     private readonly IProductService _productService;
     private readonly ICartService _cartService;
+    private readonly ICouponService _couponService;
 
-    public CartController(IProductService productService, ICartService cartService)
+    public CartController(IProductService productService, ICartService cartService, ICouponService couponService)
     {
         _productService = productService;
         _cartService = cartService;
+        _couponService = couponService;
     }
     
     [Authorize]
     public async Task<IActionResult> CartIndex() {
         
         return View(await FindUserCart());
+    }
+    
+    [HttpPost]
+    [ActionName("ApplyCoupon")]
+    public async Task<IActionResult> ApplyCoupon(CartViewModel model) {
+        var accessToken = await HttpContext.GetTokenAsync("access_token");
+        var userId = User.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
+
+        var response = await _cartService.ApplyCoupon(model, accessToken);
+        if (response) {
+            return RedirectToAction(nameof(CartIndex));
+        }
+        return View();
+    }
+    
+    [HttpPost]
+    [ActionName("RemoveCoupon")]
+    public async Task<IActionResult> RemoveCoupon() {
+        var accessToken = await HttpContext.GetTokenAsync("access_token");
+        var userId = User.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
+
+        var response = await _cartService.RemoveCoupon(userId, accessToken);
+        if (response) {
+            return RedirectToAction(nameof(CartIndex));
+        }
+        return View();
     }
     
     public async Task<IActionResult> Remove(int id) {
@@ -32,6 +60,12 @@ public class CartController : Controller {
         }
         return View();
     }
+    
+    [HttpGet]
+    public async Task<IActionResult> Checkout() {
+        
+        return View(await FindUserCart());
+    }
 
     private async Task<CartViewModel> FindUserCart() {
         var token = await HttpContext.GetTokenAsync("access_token");
@@ -39,11 +73,18 @@ public class CartController : Controller {
 
         var response = await _cartService.FindCartByUserId(userId, token);
 
-        if (response?.CartHeader != null) {
-            foreach (var detail in response.CartDetails) {
-                response.CartHeader.PurchaseAmout += (detail.Product.Price * detail.Count);
-            }
+        if (response?.CartHeader == null) return response;
+        
+        if (!string.IsNullOrEmpty(response.CartHeader.CouponCode)) {
+            var coupon = await _couponService.GetCoupon(response.CartHeader.CouponCode, token);
+            if (coupon?.CouponCode != null) {
+                response.CartHeader.DiscountAmount = coupon.DiscountAmount;
+            } 
         }
+        foreach (var detail in response.CartDetails) {
+            response.CartHeader.PurchaseAmout += detail.Product.Price * detail.Count;
+        }
+        response.CartHeader.PurchaseAmout -= response.CartHeader.DiscountAmount;
         return response;
     }
 }
