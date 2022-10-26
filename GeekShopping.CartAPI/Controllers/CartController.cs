@@ -1,4 +1,5 @@
 ﻿using GeekShopping.CartAPI.Data.ValueObjects;
+using GeekShopping.CartAPI.Messages;
 using GeekShopping.CartAPI.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +26,6 @@ public class CartController : ControllerBase {
     }
     
     [HttpPost("add-cart")]
-    //Authorize]
     public async Task<ActionResult<CartVO>> AddCart(CartVO vo) {
         CartVO cart = await _repository.SaveOrUpdateCart(vo);
         if (cart == null) return NotFound();
@@ -33,7 +33,6 @@ public class CartController : ControllerBase {
     }
     
     [HttpPut("update-cart")]
-    //Authorize]
     public async Task<ActionResult<CartVO>> UpdateCart(CartVO vo) {
         CartVO cart = await _repository.SaveOrUpdateCart(vo);
         if (cart == null) return NotFound();
@@ -41,7 +40,6 @@ public class CartController : ControllerBase {
     }
     
     [HttpDelete("remove-cart/{id}")]
-    //Authorize]
     public async Task<ActionResult<CartVO>> RemoveCart(int id) {
         bool status = await _repository.RemoveFromCart(id);
         if (!status) return BadRequest();
@@ -49,7 +47,6 @@ public class CartController : ControllerBase {
     }
     
     [HttpPost("apply-coupon")]
-    //Authorize]
     public async Task<ActionResult<CartVO>> ApplyCoupon(CartVO vo) {
         bool status = await _repository.ApplyCoupon(vo.CartHeader.UserId, vo.CartHeader.CouponCode);
         if (!status) return NotFound();
@@ -57,10 +54,21 @@ public class CartController : ControllerBase {
     }
     
     [HttpDelete("remove-coupon/{userId}")]
-    //Authorize]
     public async Task<ActionResult<CartVO>> RemoveCoupon(string userId) {
         bool status = await _repository.RemoveCoupon(userId);
         if (!status) return NotFound();
         return Ok(status);
+    }
+    
+    [HttpPost("checkout")]
+    public async Task<ActionResult<CheckoutHeaderVO>> Checkout(CheckoutHeaderVO vo) {
+        CartVO cart = await _repository.FindCartByUserId(vo.UserId);
+        if (cart == null) return NotFound();
+        vo.CartDetails = cart.CartDetails;
+        vo.Time = DateTime.UtcNow;
+        
+        // TODO: RabiitMQ logic comes here!!!
+        
+        return Ok(vo);
     }
 }
