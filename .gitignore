@@ -20,3 +20,6 @@
 /GeekShopping.CouponAPI/obj
 /GeekShopping.CouponAPI/bin
 /GeekShopping.CouponAPI/Migrations
+
+/GeekShopping.MessageBus/obj
+/GeekShopping.MessageBus/bin
