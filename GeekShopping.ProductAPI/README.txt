@@ -8,3 +8,5 @@
 *Run 'dotnet ef migrations add AddCouponDataTablesOnDB' to create CouponAPI migration;
 *Run 'dotnet ef migrations add AddOrderDataTablesOnDB' to create OrderAPI migration;
 *Run 'dotnet ef database update' on ProductAPI, IdentityServer, CartAPI, CouponAPI and OrderAPI projects;
+
+docker run -d --hostname my-rabbit --name some-rabbit -p 5672:5672 -p 15672:15672 rabbitmq:3-management
