@@ -23,3 +23,7 @@
 
 /GeekShopping.MessageBus/obj
 /GeekShopping.MessageBus/bin
+
+/GeekShopping.OrderAPI/obj
+/GeekShopping.OrderAPI/bin
+/GeekShopping.OrderAPI/Migrations
