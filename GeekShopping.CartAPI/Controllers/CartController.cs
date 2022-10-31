@@ -2,6 +2,7 @@
 using GeekShopping.CartAPI.Messages;
 using GeekShopping.CartAPI.RabbitMqSender;
 using GeekShopping.CartAPI.Repository;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -70,7 +71,7 @@ public class CartController : ControllerBase {
         var cart = await _cartRepository.FindCartByUserId(vo.UserId);
         if (cart == null) return NotFound();
         if (!string.IsNullOrEmpty(vo.CouponCode)) {
-            string accessToken = Request.Headers["Authorization"];
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
             var coupon = await _couponRepository.GetCoupon(vo.CouponCode, accessToken);
             if (vo.DiscountAmount != coupon.DiscountAmount) {
                 return StatusCode(412);
@@ -80,6 +81,7 @@ public class CartController : ControllerBase {
         vo.Time = DateTime.UtcNow;
         
         _rabbitMqMessageSender.SendMessage(vo,"checkoutQueue");
+        await _cartRepository.ClearCart(vo.UserId);
         
         return Ok(vo);
     }

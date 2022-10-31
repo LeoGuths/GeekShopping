@@ -27,3 +27,6 @@
 /GeekShopping.OrderAPI/obj
 /GeekShopping.OrderAPI/bin
 /GeekShopping.OrderAPI/Migrations
+
+/GeekShopping.PaymentAPI/obj
+/GeekShopping.PaymentAPI/bin

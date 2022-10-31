@@ -17,7 +17,7 @@ public class CartRepository : ICartRepository {
     
     public async Task<CartVO> FindCartByUserId(string userId) {
         Cart cart = new() {
-            CartHeader = await _context.CartHeaders.FirstOrDefaultAsync(c => c.UserId.Equals(userId)),
+            CartHeader = await _context.CartHeaders.FirstOrDefaultAsync(c => c.UserId.Equals(userId)) ?? new CartHeader()
         };
         cart.CartDetails = _context.CartDetails
             .Where(c => cart.CartHeader != null && c.CartHeaderId == cart.CartHeader.Id)

@@ -12,7 +12,7 @@ public class CouponRepository : ICouponRepository {
         _client = client;
     }
 
-    public async Task<CouponVO> GetCoupon(string couponCode, string accessToken) {
+    public async Task<CouponVO> GetCoupon(string couponCode, string? accessToken) {
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",accessToken);
         var response = await _client.GetAsync($"api/v1/coupon/{couponCode}");
         var content = await response.Content.ReadAsStringAsync();
