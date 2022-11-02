@@ -48,7 +48,7 @@ public class RabbitMqPaymentConsumer : BackgroundService {
             Email = vo.Email
         };
         try {
-            _rabbitMqMessageSender.SendMessage(paymentResult, "OrderPaymentResultQueue");
+            _rabbitMqMessageSender.SendMessage(paymentResult);
         }
         catch (Exception e) {
             Console.WriteLine(e); // TODO: logger

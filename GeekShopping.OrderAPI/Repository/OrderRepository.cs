@@ -21,11 +21,11 @@ public class OrderRepository : IOrderRepository {
     }
 
     public async Task UpdateOrderPaymentStatus(long orderHeaderId, bool status) {
-        await using var _db = new MySqlContext(_context);
-        var header = await _db.OrderHeaders.FirstOrDefaultAsync(o => o.Id == orderHeaderId);
+        await using var db = new MySqlContext(_context);
+        var header = await db.OrderHeaders.FirstOrDefaultAsync(o => o.Id == orderHeaderId);
         if (header != null) {
             header.PaymentStatus = status;
         }
-        await _db.SaveChangesAsync();
+        await db.SaveChangesAsync();
     }
 }
