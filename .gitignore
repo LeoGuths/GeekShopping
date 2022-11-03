@@ -35,5 +35,8 @@
 /GeekShopping.Email/bin
 /GeekShopping.Email/Migrations
 
-/GeekShopping.PaymentProcessor/obj/
+/GeekShopping.PaymentProcessor/obj
 /GeekShopping.PaymentProcessor/bin
+
+/GeekShopping.APIGateway/obj
+/GeekShopping.APIGateway/bin
