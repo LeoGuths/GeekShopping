@@ -25,7 +25,7 @@ public class ProductRepository : IProductRepository
 
     public async Task<ProductVO> FindById(long id)
     {
-        Product product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+        Product product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id) ?? new Product();
         return _mapper.Map<ProductVO>(product);
     }
 
@@ -49,8 +49,8 @@ public class ProductRepository : IProductRepository
     {
         try
         {
-            Product product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
-            if (product == null) return false;
+            Product product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id) ?? new Product();
+            if (product.Id <= 0) return false;
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
             return true;
