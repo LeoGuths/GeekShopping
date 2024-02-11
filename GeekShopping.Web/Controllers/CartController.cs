@@ -1,4 +1,5 @@
-﻿using GeekShopping.Web.Models;
+﻿// ReSharper disable Mvc.ViewNotResolved
+using GeekShopping.Web.Models;
 using GeekShopping.Web.Services.IServices;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
