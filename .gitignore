@@ -3,37 +3,31 @@
 
 /GeekShopping.ProductAPI/obj
 /GeekShopping.ProductAPI/bin
-/GeekShopping.ProductAPI/Migrations
 
 /GeekShopping.Web/obj
 /GeekShopping.Web/bin
 
 /GeekShopping.IdentityServer/obj
 /GeekShopping.IdentityServer/bin
-/GeekShopping.IdentityServer/Migrations
 /GeekShopping.IdentityServer/keys
 
 /GeekShopping.CartAPI/obj
 /GeekShopping.CartAPI/bin
-/GeekShopping.CartAPI/Migrations
 
 /GeekShopping.CouponAPI/obj
 /GeekShopping.CouponAPI/bin
-/GeekShopping.CouponAPI/Migrations
 
 /GeekShopping.MessageBus/obj
 /GeekShopping.MessageBus/bin
 
 /GeekShopping.OrderAPI/obj
 /GeekShopping.OrderAPI/bin
-/GeekShopping.OrderAPI/Migrations
 
 /GeekShopping.PaymentAPI/obj
 /GeekShopping.PaymentAPI/bin
 
 /GeekShopping.Email/obj
 /GeekShopping.Email/bin
-/GeekShopping.Email/Migrations
 
 /GeekShopping.PaymentProcessor/obj
 /GeekShopping.PaymentProcessor/bin
