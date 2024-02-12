@@ -15,7 +15,7 @@ var connection = builder.Configuration["MySQLConnection:MySQLConnectionString"];
 builder.Services.AddDbContext<MySqlContext>(options => options.
     UseMySql(connection, 
         new MySqlServerVersion(
-            new Version(8,0,29))));
+            new Version(8,0,25))));
 
 IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
