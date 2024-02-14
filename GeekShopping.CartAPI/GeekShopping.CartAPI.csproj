@@ -25,4 +25,11 @@
       <ProjectReference Include="..\GeekShopping.MessageBus\GeekShopping.MessageBus.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+        <DependentUpon>Dockerfile</DependentUpon>
+      </Content>
+    </ItemGroup>
+
 </Project>
