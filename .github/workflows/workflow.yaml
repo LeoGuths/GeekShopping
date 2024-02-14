@@ -21,9 +21,9 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with: 
-          context: GeekShopping.CartAPI/
+          context: GeekShopping.CouponAPI/
           push: true
-          tags: leoguths/geek-shopping-cart-api-dotnet:${{ github.run_number }}, leoguths/geek-shopping-cart-api-dotnet:latest 
+          tags: leoguths/geek-shopping-coupon-api-dotnet:${{ github.run_number }}, leoguths/geek-shopping-coupon-api-dotnet:latest 
           
           #      - name: Publish to Github Packages
 #        uses: docker/build-push-action@v1
