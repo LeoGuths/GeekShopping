@@ -11,9 +11,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Open dir
-        run: cd GeekShopping.CouponAPI/
         
       - name: Setup .Net
         uses: actions/setup-dotnet@v4
@@ -21,12 +18,14 @@ jobs:
           dotnet-version: 6.0.x
           
       - name: Restore dependencies
-        run: dotnet restore
-        
-      - name: Package generation
-        run: dotnet build -c Release -o out
-        
-      - name: Nuget push
         run: |
-          cd out
-          dotnet nuget push *.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/LeoGuths/index.json" --skip-duplicate
+          cd GeekShopping.CouponAPI/
+          dotnet restore
+        
+#      - name: Package generation
+#        run: dotnet build -c Release -o out GeekShopping.CouponAPI.csproj
+#        
+#      - name: Nuget push
+#        run: |
+#          cd out
+#          dotnet nuget push *.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/LeoGuths/index.json" --skip-duplicate
