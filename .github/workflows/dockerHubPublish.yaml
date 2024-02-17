@@ -1,4 +1,4 @@
-name: Publish Docker images
+name: Publish Docker Hub images
 
 on: 
   push:
@@ -25,10 +25,11 @@ jobs:
           push: true
           tags: leoguths/geek-shopping-coupon-api-dotnet:${{ github.run_number }}, leoguths/geek-shopping-coupon-api-dotnet:latest 
           
-          #      - name: Publish to Github Packages
-#        uses: docker/build-push-action@v1
-#        with: 
-#          username: ${{ github.actor }}
-#          password: ${{ secrets.GITHUB_TOKEN }}
-#          registry: docker.pkg.github.com
-#          tags: latest, ${{ github.run_number }}
+      - name: Publish to Github Packages
+        uses: docker/build-push-action@v5
+        with:
+          context: GeekShopping.CouponAPI/
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          tags: latest, ${{ github.run_number }}

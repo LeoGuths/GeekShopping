@@ -1,0 +1,32 @@
+name: Publish .Net Nuget Package
+
+on:
+  push:
+    branches: ['master']
+
+jobs:
+  build:
+    name: Build and Push Nuget Package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Open dir
+        run: cd GeekShopping.CouponAPI/
+        
+      - name: Setup .Net
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 6.0.x
+          
+      - name: Restore dependencies
+        run: dotnet restore
+        
+      - name: Package generation
+        run: dotnet build -c Release -o out
+        
+      - name: Nuget push
+        run: |
+          cd out
+          dotnet nuget push *.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/LeoGuths/index.json" --skip-duplicate

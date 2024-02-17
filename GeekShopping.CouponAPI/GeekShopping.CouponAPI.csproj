@@ -4,6 +4,13 @@
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        
+        <PackageId>geek-shopping-coupon-api</PackageId>
+        <Version>1.0.0</Version>
+        <Authors>Leonardo Guths</Authors>
+<!--        <Company></Company>-->
+        <RepositoryUrl>https://github.com/LeoGuths/GeekShopping</RepositoryUrl>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
     <ItemGroup>
