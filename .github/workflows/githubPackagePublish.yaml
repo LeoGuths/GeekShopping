@@ -17,10 +17,12 @@ jobs:
         with:
           dotnet-version: 6.0.x
           
-      - name: Restore dependencies
+      - name: Restore dependencies and build
         run: |
           cd GeekShopping.CouponAPI/
           dotnet restore
+          dotnet build -c Release -o out
+          ls
         
 #      - name: Package generation
 #        run: dotnet build -c Release -o out GeekShopping.CouponAPI.csproj
