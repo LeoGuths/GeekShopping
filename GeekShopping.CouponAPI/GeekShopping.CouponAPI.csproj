@@ -8,8 +8,7 @@
         
         <PackageId>geek-shopping-coupon-api</PackageId>
         <Version>1.0.0</Version>
-        <Authors>Leonardo Guths</Authors>
-<!--        <Company></Company>-->
+        <Authors>LeoGuths</Authors>
         <RepositoryUrl>https://github.com/LeoGuths/GeekShopping</RepositoryUrl>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
