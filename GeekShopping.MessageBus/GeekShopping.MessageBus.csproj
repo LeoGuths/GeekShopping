@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <IsPackable>true</IsPackable>
 
-        <PackageId>geek-shopping-message-bus</PackageId>
+        <PackageId>GeekShopping.MessageBus</PackageId>
         <Version>1.0.0</Version>
         <Authors>LeoGuths</Authors>
         <RepositoryUrl>https://github.com/LeoGuths/GeekShopping</RepositoryUrl>

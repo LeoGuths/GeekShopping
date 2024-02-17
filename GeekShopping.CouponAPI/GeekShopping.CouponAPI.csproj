@@ -6,7 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <IsPackable>true</IsPackable>
         
-        <PackageId>geek-shopping-coupon-api</PackageId>
+        <PackageId>GeekShopping.CouponAPI</PackageId>
         <Version>1.0.0</Version>
         <Authors>LeoGuths</Authors>
         <RepositoryUrl>https://github.com/LeoGuths/GeekShopping</RepositoryUrl>

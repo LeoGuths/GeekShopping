@@ -1,4 +1,5 @@
 ﻿*Create C:\Tools\LocalNuget;
+*dotnet nuget add source --username LeoGuths --password [GITHUB_API_TOKEN] --name LeoGuthsGitHub https://nuget.pkg.github.com/LeoGuths/index.json
 
 *Create databases (geek_shopping_product_api, geek_shopping_identity_server, geek_shopping_cart_api, geek_shopping_coupon_api, geek_shopping_order_api, geek_shopping_email)
 *Run 'dotnet tool install --global dotnet-ef';
