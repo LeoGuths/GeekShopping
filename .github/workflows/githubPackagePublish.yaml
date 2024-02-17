@@ -21,13 +21,9 @@ jobs:
         run: |
           cd GeekShopping.CouponAPI/
           dotnet restore
-          dotnet build -c Release -o out
-          ls
-        
-#      - name: Package generation
-#        run: dotnet build -c Release -o out GeekShopping.CouponAPI.csproj
-#        
-#      - name: Nuget push
-#        run: |
-#          cd out
-#          dotnet nuget push *.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/LeoGuths/index.json" --skip-duplicate
+          dotnet build -c Release --property WarningLevel=0 -o out
+
+      - name: Nuget push
+        run: |
+          cd GeekShopping.CouponAPI/out
+          dotnet nuget push *.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/LeoGuths/index.json" --skip-duplicate
