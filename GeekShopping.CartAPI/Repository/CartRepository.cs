@@ -1,18 +1,16 @@
-﻿using AutoMapper;
-using GeekShopping.CartAPI.Data.ValueObjects;
+﻿using GeekShopping.CartAPI.Data.ValueObjects;
 using GeekShopping.CartAPI.Model;
 using GeekShopping.CartAPI.Model.Context;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 
 namespace GeekShopping.CartAPI.Repository;
 
 public class CartRepository : ICartRepository {
     private readonly MySqlContext _context;
-    private IMapper _mapper;
 
-    public CartRepository(MySqlContext context, IMapper mapper) {
+    public CartRepository(MySqlContext context) {
         _context = context;
-        _mapper = mapper;
     }
     
     public async Task<CartVO> FindCartByUserId(string userId) {
@@ -22,11 +20,12 @@ public class CartRepository : ICartRepository {
         cart.CartDetails = _context.CartDetails
             .Where(c => cart.CartHeader != null && c.CartHeaderId == cart.CartHeader.Id)
             .Include(c => c.Product).ToList();
-        return _mapper.Map<CartVO>(cart);
+        return cart.Adapt<CartVO>();
     }
 
     public async Task<CartVO> SaveOrUpdateCart(CartVO vo) {
-        Cart cart = _mapper.Map<Cart>(vo);
+        var cart = vo.Adapt<Cart>();
+        
         //Checks if the product is already saved in the database if it does not exist then save
         var product = await _context.Products.FirstOrDefaultAsync(
             p => p.Id == vo.CartDetails.FirstOrDefault().ProductId);
@@ -77,7 +76,7 @@ public class CartRepository : ICartRepository {
                 await _context.SaveChangesAsync();
             } 
         }
-        return _mapper.Map<CartVO>(cart);
+        return cart.Adapt<CartVO>();
     }
 
     public async Task<bool> RemoveFromCart(long cartDetailsId) {
