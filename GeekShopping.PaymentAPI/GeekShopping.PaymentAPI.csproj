@@ -9,6 +9,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.26" />
+        <PackageReference Include="GeekShopping.MessageBus" Version="1.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.26" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.26">
             <PrivateAssets>all</PrivateAssets>
@@ -22,7 +23,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\GeekShopping.MessageBus\GeekShopping.MessageBus.csproj" />
         <ProjectReference Include="..\GeekShopping.PaymentProcessor\GeekShopping.PaymentProcessor.csproj" />
     </ItemGroup>
 
