@@ -3,6 +3,10 @@ name: Publish Docker Hub images
 on: 
   push:
     branches: ['master']
+    
+env:
+  PROJECT_PATH: GeekShopping.CouponAPI
+  PROJECT_NAME: geek-shopping-coupon-api-dotnet
 
 jobs:
   CI:
@@ -18,28 +22,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-
-      - name: Docker Compose Build
-        working-directory: ./
-        run: docker compose build
-        
-      - name: Push to Docker Hub Container Registry
-        run: |
-          docker tag geek-shopping-coupon-api-dotnet:latest ${{ secrets.DOCKER_USERNAME }}/geek-shopping-coupon-api-dotnet:latest
-          docker tag geek-shopping-coupon-api-dotnet:latest ${{ secrets.DOCKER_USERNAME }}/geek-shopping-coupon-api-dotnet:${{ github.run_id }}
           
-          docker push ${{ secrets.DOCKER_USERNAME }}/geek-shopping-coupon-api-dotnet:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/geek-shopping-coupon-api-dotnet:${{ github.run_id }}
-          
-          docker tag geek-shopping-coupon-api-mysql:latest ${{ secrets.DOCKER_USERNAME }}/geek-shopping-coupon-api-mysql:latest
-          docker tag geek-shopping-coupon-api-mysql:latest ${{ secrets.DOCKER_USERNAME }}/geek-shopping-coupon-api-mysql:${{ github.run_id }}
-          
-          docker push ${{ secrets.DOCKER_USERNAME }}/geek-shopping-coupon-api-mysql:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/geek-shopping-coupon-api-mysql:${{ github.run_id }}
-          
-#      - name: Build and push Docker image
-#        uses: docker/build-push-action@v5
-#        with: 
-#          context: GeekShopping.CouponAPI/
-#          push: true
-#          tags: ${{ secrets.DOCKER_USERNAME }}/geek-shopping-coupon-api-dotnet:${{ github.run_number }}, ${{ secrets.DOCKER_USERNAME }}/geek-shopping-coupon-api-dotnet:latest
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with: 
+          context: $PROJECT_PATH
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/$PROJECT_NAME:${{ github.run_number }}, ${{ secrets.DOCKER_USERNAME }}/$PROJECT_NAME:latest
