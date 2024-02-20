@@ -22,13 +22,13 @@ jobs:
           
       - name: Restore dependencies and build
         run: |
-          cd $PROJECT_PATH
+          cd ${{ env.PROJECT_PATH }}
           dotnet restore
           dotnet build -c Release --property WarningLevel=0 -o out
 
       - name: Nuget push
         run: |
-          cd $PROJECT_PATH/out
+          cd ${{ env.PROJECT_PATH }}/out
           dotnet nuget push *.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/LeoGuths/index.json" --skip-duplicate
           
           
