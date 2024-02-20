@@ -6,9 +6,10 @@ RUN dotnet publish "GeekShopping.CouponAPI.csproj" -c -release -o /app --no-rest
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-focal
 WORKDIR /app
+ENV ASPNETCORE_URLS=http://+:5020
 COPY --from=build /app ./
 
 EXPOSE 80
-ENV ASPNETORE_URLS=http://*:5020
+EXPOSE 443
 
 ENTRYPOINT ["dotnet", "GeekShopping.CouponAPI.dll"]

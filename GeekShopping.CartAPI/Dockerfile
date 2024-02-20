@@ -2,13 +2,14 @@
 WORKDIR /source
 COPY . .
 RUN dotnet restore "GeekShopping.CartAPI.csproj" 
-RUN dotnet publish "GeekShopping.CartAPI.csproj" -c -release -o /app --no-restore
+RUN dotnet publish "GeekShopping.CartAPI.csproj" -c -release --property WarningLevel=0 -o /app --no-restore
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-focal
 WORKDIR /app
+ENV ASPNETCORE_URLS=http://+:5010
 COPY --from=build /app ./
 
 EXPOSE 80
-ENV ASPNETORE_URLS=http://*:5010
+EXPOSE 443
 
 ENTRYPOINT ["dotnet", "GeekShopping.CartAPI.dll"]
