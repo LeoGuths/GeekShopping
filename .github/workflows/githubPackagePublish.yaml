@@ -3,6 +3,9 @@ name: Publish .Net Nuget Package
 on:
   push:
     branches: ['master']
+    
+env:
+  PROJECT_PATH = 'GeekShopping.CouponAPI'
 
 jobs:
   build:
@@ -19,13 +22,11 @@ jobs:
           
       - name: Restore dependencies and build
         run: |
-          cd GeekShopping.CouponAPI/
+          cd ${{ secrets.GITHUB_TOKEN }}
           dotnet restore
           dotnet build -c Release --property WarningLevel=0 -o out
 
       - name: Nuget push
         run: |
-          cd GeekShopping.CouponAPI/out
+          cd ${{ secrets.GITHUB_TOKEN }}/out
           dotnet nuget push *.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/LeoGuths/index.json" --skip-duplicate
-          
-          
