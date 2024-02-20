@@ -28,4 +28,4 @@ jobs:
         with: 
           context: $PROJECT_PATH
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/$PROJECT_NAME:${{ github.run_number }}, ${{ secrets.DOCKER_USERNAME }}/$PROJECT_NAME:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ PROJECT_NAME }}:${{ github.run_number }}, ${{ secrets.DOCKER_USERNAME }}/ $PROJECT_NAME:latest
