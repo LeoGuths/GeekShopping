@@ -28,4 +28,4 @@ jobs:
         with: 
           context: $PROJECT_PATH
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.PROJECT_NAME }}:${{ github.run_number }}, ${{ secrets.DOCKER_USERNAME }}/${{ env.PROJECT_NAME }}:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/geek-shopping-coupon-api-dotnet:${{ github.run_number }}, ${{ secrets.DOCKER_USERNAME }}/geek-shopping-coupon-api-dotnet:latest
